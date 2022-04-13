@@ -20,7 +20,7 @@ def get_product_list():
     )
     content = response.json()
     # RabbitMQ cloudamqp
-    publish('access_token', content)
+    publish('get_product_list', content)
     return content
 
 
