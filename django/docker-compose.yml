@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  back-django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: back-django
+    restart: unless-stopped
+    command: 'python manage.py runserver 0.0.0.0:8000'
+    ports:
+      - "85:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db-django
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python consumer.py'
+    depends_on:
+      - db-django
+
+  db-django:
+    image: mysql:5.7.22
+    container_name: db-django
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: admin
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - "33067:3306"

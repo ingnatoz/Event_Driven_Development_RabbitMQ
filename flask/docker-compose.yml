@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  back-flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: back-flask
+    restart: unless-stopped
+    command: 'python app.py'
+    ports:
+      - "86:5000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db-flask
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python consumer.py'
+    depends_on:
+      - db-flask
+
+  db-flask:
+    image: mysql:5.7.22
+    container_name: db-flask
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: main
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - "33068:3306"
