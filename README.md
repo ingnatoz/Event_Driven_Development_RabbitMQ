@@ -59,9 +59,6 @@ Flask:
 ## Using Docker to package our application
 
 
-
-We pull all of this together with a Docker compose file, `docker-compose.yml`. While early versions of compose needed to expose ports for each service, we can link the services together using the `links` keyword. The `depends` keyword ensures that all of our services start in the correct order.
-
 To create and run the container in case of Django, use:
 
     docker-compose build
