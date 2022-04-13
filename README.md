@@ -2,7 +2,7 @@
 
 # Using DRF and Flack with RabbitMQ (EDD)
 
-Flask, Django Rest Framework, RabbitMQ y MySql, junto con Docker para crear dos servicios web que generan contenido de forma dinámica y asíncrona.
+Flask, Django Rest Framework, RabbitMQ, and MySql, along with Docker to create two web services that generate content dynamically and asynchronously.
 
 ## Project Structure
 
